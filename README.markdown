@@ -186,11 +186,11 @@ If you want to install the latest version of ImageMagick. I used MiniMagick that
 
 Use wget to grab the source from ImageMagick.org.
 
+    wget ftp://ftp.imagemagick.org/pub/ImageMagick/ImageMagick.tar.gz
+
 Once the source is downloaded, uncompress it:
-
-	wget ftp://ftp.imagemagick.org/pub/ImageMagick/ImageMagick.tar.gz
+	
     tar xvfz ImageMagick.tar.gz
-
 
 Now configure and make:
 
