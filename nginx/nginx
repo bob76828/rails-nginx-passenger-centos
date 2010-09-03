@@ -8,6 +8,7 @@
 # processname: nginx
 # config:      /opt/nginx/conf/nginx.conf
 # pidfile:     /opt/nginx/logs/nginx.pid
+# modified from http://articles.slicehost.com/2009/2/2/centos-adding-an-nginx-init-script
 
 # Source function library.
 . /etc/rc.d/init.d/functions
