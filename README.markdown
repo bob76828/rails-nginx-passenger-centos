@@ -25,9 +25,6 @@ Configure timezone
 
 	yum install tzdata system-config-date redhat-config-date
 	yum install ntp
-	
-    sudo dpkg-reconfigure tzdata
-    sudo apt-get install ntp
     sudo ntpdate ntp.ubuntu.com # Update time
     
 Verify that you have to correct date and time with
