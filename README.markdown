@@ -195,7 +195,7 @@ Once the source is downloaded, uncompress it:
 Now configure and make:
 
     cd ImageMagick-6.6.3-10
-    ./configure
+    ./configure --prefix=/usr --with-bzlib=yes --with-fontconfig=yes --with-freetype=yes --with-gslib=yes --with-gvc=yes --with-jpeg=yes --with-jp2=yes --with-png=yes --with-tiff=yes
     make
     sudo make install
 
