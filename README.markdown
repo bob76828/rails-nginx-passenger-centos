@@ -23,7 +23,7 @@ Update and upgrade the system
 Configure timezone
 -------------------
 
-	yum install tzdata system-config-date redhat-config-date
+	yum install tzdata system-config-date
 	yum install ntp
     sudo ntpdate ntp.ubuntu.com # Update time
     
