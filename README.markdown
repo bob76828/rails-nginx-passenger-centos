@@ -1,7 +1,7 @@
-rails-nginx-passenger-ubuntu
+rails-nginx-passenger-centos
 ============================
 
-My notes on setting up a simple production server with ubuntu, nginx, passenger and mysql for rails.
+My notes on setting up a simple production server with centos, nginx, passenger and mysql for rails.
 
 Aliases
 -------
@@ -18,12 +18,14 @@ If you have trouble with PATH that changes when doing sudo, see http://stackover
 Update and upgrade the system
 -------------------------------
 
-    sudo apt-get update
-    sudo apt-get upgrade
+    sudo yum update
 
 Configure timezone
 -------------------
 
+	yum install tzdata system-config-date redhat-config-date
+	yum install ntp
+	
     sudo dpkg-reconfigure tzdata
     sudo apt-get install ntp
     sudo ntpdate ntp.ubuntu.com # Update time
@@ -54,7 +56,7 @@ Install mysql
 
 This should be installed before Ruby Enterprise Edition becouse that will install the mysql gem.
 
-    sudo apt-get install mysql-server libmysqlclient15-dev
+    sudo yum install mysql mysql-devel
     
     
 Gemrc
@@ -76,7 +78,9 @@ Check for newer version at http://www.rubyenterpriseedition.com/download.html
 
 Install package required by ruby enterprise, C compiler, Zlib development headers, OpenSSL development headers, GNU Readline development headers
 
-    sudo apt-get install build-essential zlib1g-dev libssl-dev libreadline5-dev
+	yum groupinstall "Development Tools"
+	yum install zlib-devel wget openssl-devel pcre pcre-devel readline-devel
+
 
 Download and install Ruby Enterprise Edition
 
@@ -96,13 +100,21 @@ Add Ruby Enterprise bin to PATH
 Verify the ruby installation
 
     ruby -v
-    ruby 1.8.7 (2009-06-12 patchlevel 174) [x86_64-linux], MBARI 0x6770, Ruby Enterprise Edition 20090928
+    rruby 1.8.7 (2010-04-19 patchlevel 253) [i686-linux], MBARI 0x8770, Ruby Enterprise Edition 2010.02
 
 
 Installing git
 ----------------
 
-    sudo apt-get install git-core
+    yum install gettext-devel expat-devel curl-devel zlib-devel openssl-devel
+	cd /usr/local/src
+	wget http://kernel.org/pub/software/scm/git/git-1.7.1.tar.gz
+	tar xzvf git-1.7.1.tar.gz
+	cd git-1.7.1
+	make prefix=/usr/local all
+	make prefix=/usr/local install
+	
+	ref: http://stackoverflow.com/questions/2318999/installing-git-on-centos
 
 Nginx
 -------
@@ -160,7 +172,7 @@ Verify that you can start and stop nginx with init script
       * Stopping Nginx Server...
       ...done.
     
-    sudo /usr/sbin/update-rc.d -f nginx defaults
+    sudo /sbin/chkconfig nginx on
     
 If you want, reboot and see so the webserver is starting as it should.
 
@@ -169,22 +181,23 @@ Installning ImageMagick and RMagick
 
 If you want to install the latest version of ImageMagick. I used MiniMagick that shell-out to the mogrify command, worked really well for me.
 
-    # If you already installed imagemagick from apt-get
-    sudo apt-get remove imagemagick
+    # If you already installed imagemagick from yum
+	sudo yum remove imagemagick
 
-    sudo apt-get install libperl-dev gcc libjpeg62-dev libbz2-dev libtiff4-dev libwmf-dev libz-dev libpng12-dev libx11-dev libxt-dev libxext-dev libxml2-dev libfreetype6-dev liblcms1-dev libexif-dev perl libjasper-dev libltdl3-dev graphviz gs-gpl pkg-config
+    yum install tcl-devel libpng-devel libjpeg-devel ghostscript-devel bzip2-devel freetype-devel libtiff-devel
+	yum install libjpeg-devel libpng-devel glib2-devel fontconfig-devel zlib-devel libwmf-devel freetype-devel
 
 Use wget to grab the source from ImageMagick.org.
 
 Once the source is downloaded, uncompress it:
 
-
+	wget ftp://ftp.imagemagick.org/pub/ImageMagick/ImageMagick.tar.gz
     tar xvfz ImageMagick.tar.gz
 
 
 Now configure and make:
 
-    cd ImageMagick-6.5.0-0
+    cd ImageMagick-6.6.3-10
     ./configure
     make
     sudo make install
@@ -193,7 +206,7 @@ To avoid an error such as:
 
 convert: error while loading shared libraries: libMagickCore.so.2: cannot open shared object file: No such file or directory
 
-    sudo ldconfig
+    sudo /sbin/ldconfig
 
 Install RMagick
  
@@ -233,4 +246,3 @@ Restart nginx
     
 Check you ipaddress and see if you can acess the rails application
         
-
