@@ -149,7 +149,7 @@ Nginx init script
 More information on http://wiki.nginx.org/Nginx-init-ubuntu
 
     cd
-    git clone git://github.com/jnstq/rails-nginx-passenger-ubuntu.git
+    git clone git://github.com/xdite/rails-nginx-passenger-centos.git
     sudo mv rails-nginx-passenger-ubuntu/nginx/nginx /etc/init.d/nginx
     sudo chown root:root /etc/init.d/nginx
     
