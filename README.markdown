@@ -150,7 +150,7 @@ More information on http://wiki.nginx.org/Nginx-init-ubuntu
 
     cd
     git clone git://github.com/xdite/rails-nginx-passenger-centos.git
-    sudo mv rails-nginx-passenger-ubuntu/nginx/nginx /etc/init.d/nginx
+    sudo mv rails-nginx-passenger-centos/nginx/nginx /etc/init.d/nginx
     sudo chown root:root /etc/init.d/nginx
     
 Verify that you can start and stop nginx with init script
